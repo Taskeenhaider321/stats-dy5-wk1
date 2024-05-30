@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailwind CSS Card Example</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png"/>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="w-full min-h-screen bg-[#090B1A]  flex justify-center items-center">
+      <main class="grid grid-cols-1 md:grid-cols-2 bg-prim-sat-blue bg-[#1B1938] md:w-[80%] w-full">
+        <section class="p-12">
+          <div class="content mt-8">
+            <h1 class="text-white text-left font-bold text-4xl">
+              Get <span class="text-insightColor">insights</span> that help your
+              business grow.
+            </h1>
+            <p class="text-lead text-neu-trans-white text-left mb-10 text-xl text-[#C6C5CD] mt-6">
+              Discover the benefits of data analytics and make better decisions
+              regarding revenue, customer experience, and overall efficiency.
+            </p>
+          </div>
+          <div class="figures">
+            <ul id="countUpFigures" class="flex justify-between pt-20 flex-wrap">
+              <li class="text-white">
+                <h2 id="countUpCompanies" class="mb-1 text-3xl font-bold">0+</h2>
+                <p class="text-[#C6C5CD]">COMPANIES</p>
+              </li>
+              <li class="text-white">
+                <h2 id="countUpTemplates" class="mb-1 text-3xl font-bold">0</h2>
+                <p class="text-[#C6C5CD]">TEMPLATES</p>
+              </li>
+              <li class="text-white">
+                <h2 id="countUpQueries" class="mb-1 text-3xl font-bold">0+</h2>
+                <p class="text-[#C6C5CD]">QUERIES</p>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <div class="-order-1 md:order-2">
+          <img src="../images/image-header-desktop.jpg" alt="" class="w-full h-full"/>
+        </div>
+      </main>
+    </div>
+ 
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        animateCountUp('countUpCompanies', 0, 10000, 200000, 'K+');
+        animateCountUp('countUpTemplates', 0, 314, 200000); '+'
+        animateCountUp('countUpQueries', 0, 12000, 200000, 'M+');
+      });
+
+      function animateCountUp(elementId, start, end, duration, suffix = '') {
+        const element = document.getElementById(elementId);
+        const increment = (end - start) / (duration / 1000);
+        let currentValue = start;
+
+        const intervalId = setInterval(() => {
+  currentValue += increment;
+
+  // Format the text with suffix
+  let formattedValue = '';
+  if (currentValue >= end) {
+    if (elementId === 'countUpCompanies') {
+      formattedValue = end >= 1000000 ? (end / 1000000).toFixed(1) + 'M+' : (end / 1000).toFixed(1) + 'K+';
+    } else if (elementId === 'countUpQueries') {
+      formattedValue = end >= 1000000 ? (end / 1000000).toFixed(1) + 'M+' : (end / 1000).toFixed(1) + 'M+';
+    } else if (elementId === 'countUpTemplates') {
+      formattedValue = end >= 1000000 ? (end / 1000000).toFixed(1) + 'M+' : (end / 1000).toFixed(1) + '+';
+    }
+    else {
+      formattedValue = Math.floor(currentValue);
+    }
+
+    element.textContent = formattedValue;
+    clearInterval(intervalId);
+  } else {
+    formattedValue = suffix ? (currentValue / 1000).toFixed(1) + suffix : Math.floor(currentValue);
+    element.textContent = formattedValue;
+  }
+}, 1);
+
+      }
+    </script>
+  </body>
+</html> 
